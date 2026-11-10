@@ -15,7 +15,7 @@ text-to-speech model on Zyphra Cloud makes the audio while you play. No line is 
 
 ## What you need
 
-- **OpenMW 0.51** (tested). Older versions are not tested.
+- **OpenMW 0.51**. Older versions are not tested.
 - **Morrowind**, set up in OpenMW (the OpenMW launcher or wizard does this).
 - **uv**, which runs the voice program and installs what it needs: https://docs.astral.sh/uv/getting-started/installation/
 - **A Zyphra Cloud API key**: make an account at https://cloud.zyphra.com and make a key on the Keys tab. Zyphra
@@ -47,15 +47,12 @@ playing).
 At the first start, the shortcut also:
 
 - adds ZonosVoice to `openmw.cfg` (it keeps a backup of the file), so the launcher shows it as ticked;
-- makes the voice clips from your copy of Morrowind (about 5 seconds; see "Voices");
+- makes the voice clips from your copy of Morrowind.
 - asks for the API key in a small window, if you did not save it in step 1.
 
 In a terminal, `uv run zonosvoice.py launcher` does the same as the shortcut. `uv run zonosvoice.py play` starts
 the game without the launcher.
 
-If you start the plain OpenMW launcher (or a mod manager), the game runs without voices. After 40 seconds of the
-first dialogue, it shows "ZonosVoice: no voice after 40 s" once. To voice that session, start
-`uv run zonosvoice.py run` in a terminal and keep it open while you play.
 
 **Wait times.** The text shows in the dialogue window at once. The voice of a new line starts about 2 to 3 seconds
 later (Zyphra Cloud). A line that was spoken before starts at once. Long lines are cut into parts at the sentence
@@ -79,16 +76,13 @@ The shortcut makes the voice clips at its first start. You can also make them yo
 files in your `Data Files` folder. It finds that folder from the `data=` lines in `openmw.cfg`. It writes clips
 into `voices/`:
 
-- **Race and sex.** In the base game, each race and sex has one voice actor. The program uses the actor's "Hello"
-  lines. It keeps calm, full sentences (no shouting) and joins several of them into a clip of 10 to 12 seconds.
+- **Race and gender.** In the base game, each race and gender has one voice actor. The program uses the actor's "Hello"
+  lines.
 - **Manner.** Each race and sex gets three clips: warm, neutral and curt. They come from the friendly, normal and
   unfriendly greetings. An NPC always gets the same one, so NPCs of one race share the actor but differ in manner.
 - **Characters.** Dagoth Ur, Vivec, Almalexia and Yagrum Bagarn get clips of their own recordings.
 - **Creatures.** Other talking creatures get a deep voice, made from the Dark Elf male clip.
 - **Expansions.** Only base-game lines are used. Some Tribunal and Bloodmoon lines come from other actors.
-
-The clips come from your copy of the game. Keep them, and the audio that the mod makes, for your own game. Do not
-share or upload them.
 
 To see and hear the voices:
 
