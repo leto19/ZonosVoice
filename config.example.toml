@@ -1,0 +1,64 @@
+# ZonosVoice settings. Copy this file to config.toml and change what you need. Every key is optional.
+# The audio comes from the released ZONOS3 Mini model: on Zyphra Cloud (https://cloud.zyphra.com, model
+# zyphra/ZONOS3-Mini), or from zonos3.cpp on this computer.
+
+[tts]
+# zyphra: Zyphra Cloud (needs an API key). cpp: zonos3.cpp on this computer (see [cpp] below; no key, no network).
+backend = "zyphra"
+
+# The API key comes from this environment variable, else from the file that "uv run zonosvoice.py key" writes.
+api_key_env = "ZYPHRA_API_KEY"
+
+# How a voice clip is cloned. "codes": the clip's codec codes, the faithful clone (default). "embedding": a looser
+# clone from a speaker embedding. The clone is made once per clip and kept in the cache folder.
+clone = "codes"
+
+# Parallel TTS requests (Zyphra Cloud; the cpp backend makes one line at a time).
+workers = 6
+
+# Extra fields for the Zyphra Cloud /audio/speech request, for example a lower temperature for steadier voices, or
+# expressive = true for a more dynamic (less stable) delivery.
+# [tts.params]
+# temperature = 1.0
+
+# backend = "cpp": zonos3.cpp (https://github.com/Zyphra/zonos3.cpp), built on this computer, with its models
+# (zonos3-qat.gguf, dac.gguf and spk-encoder.gguf in <dir>/models). The voice program starts zonos3-server while the
+# voices run and stops it with the game. It makes one line at a time; on a CPU it is about real time or slower, so
+# the voice of a new line starts a few seconds later than with Zyphra Cloud. The server needs about 6 GB of memory.
+# [cpp]
+# dir = "C:/Users/you/zonos3.cpp"
+# model = "zonos3-qat.gguf"      # the backbone in <dir>/models, or a full path (for example zonos3-q8_0.gguf)
+# gpu = false                     # true for a CUDA, Metal or Vulkan build
+# dac_threads = 8                 # decoder threads
+# clone = "embedding"             # or "reference" (needs dac-encoder.gguf and ssl-teacher.gguf in <dir>/models)
+# port = 18871
+# url = "http://127.0.0.1:1919"   # use a zonos3-server that already runs instead
+# [cpp.params]                    # extra /tts/generate fields
+# speaker_cfg_scale = 1.5         # closer to the clip, twice the computing
+
+[game]
+# Default: found for your system (Linux ~/.config/openmw, macOS ~/Library/Preferences/openmw,
+# Windows Documents/My Games/OpenMW).
+# openmw_cfg = "C:/Users/you/Documents/My Games/OpenMW/openmw.cfg"
+# openmw_log = "C:/Users/you/Documents/My Games/OpenMW/openmw.log"
+
+# Default: the data= folder in openmw.cfg that has Morrowind.esm.
+# data_files = "C:/Games/Morrowind/Data Files"
+
+# The program that "uv run zonosvoice.py play" starts.
+# openmw = "C:/Games/OpenMW/openmw.exe"
+
+[voices]
+# Zyphra Cloud default voices for a race and sex that has no clip in voices/, and for the narrator (the cpp backend
+# has no default voices: it uses another clip from voices/ instead, and needs at least one clip). The names must
+# be default voices of Zyphra Cloud (English ones: rupert, wyatt, cillian, thaddeus, jett for men; imogen, savannah,
+# willow, morgana, sakura for women). An unknown name is an error ("voice_not_found").
+cloud_male = ["rupert", "wyatt", "cillian", "thaddeus"]
+cloud_female = ["imogen", "savannah", "willow", "morgana"]
+cloud_narrator = "rupert"
+
+# Generic lines (lines that any NPC who matches the filters can say) with one shared clip per race and sex, so each
+# such line is made once per race and sex and then comes from the cache.
+# "auto": share when the folder has a neutral.* clip (as extract-game-voices makes: one actor per folder).
+# "shared": always share the first clip. "own": every NPC uses its own clip for all lines.
+generic_lines = "auto"

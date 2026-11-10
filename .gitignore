@@ -1,0 +1,12 @@
+# Runtime files, local settings and generated audio: never commit them.
+/Sound/
+/zonosvoice/
+/voices/*
+!/voices/README.md
+/config.toml
+/samples/
+/dist/
+/test_out/
+/test_out_*/
+__pycache__/
+*.pyc
